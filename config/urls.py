@@ -18,8 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('companies/', include('core.company.urls')),
-    path('jobs/', include('core.job_opening.urls')),
-    path('locations/', include('core.location.urls')),
+    path('api/', include('core.company.urls')),
+    path('api/', include('core.location.urls')),
+    path('api/', include('core.jobopening.urls')),
     path('admin/', admin.site.urls),
 ]
