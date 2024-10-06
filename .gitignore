@@ -2,7 +2,7 @@
 .env
 
 # Ignore log file
-*.logfile
+logfile
 
 # Ignore Python bytecode
 *.pyc

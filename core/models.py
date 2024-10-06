@@ -1,8 +1,10 @@
 from django.db import models
 from core.base.models import TimeStampedModel
+import uuid
 
 
 class Location(TimeStampedModel):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     country = models.CharField(max_length=255)
     state = models.CharField(max_length=255, null=True, blank=True)
     city = models.CharField(max_length=255)
@@ -19,19 +21,21 @@ class Location(TimeStampedModel):
 
 
 class Company(TimeStampedModel):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=255)
     employee_count = models.IntegerField()
-    headquarters_location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True, blank=True)
+    headquarters_location_id = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self) -> str:
         return self.name
 
 
 class JobOpening(TimeStampedModel):
-    company = models.ForeignKey(Company, related_name='job_openings', on_delete=models.CASCADE)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    company_id = models.ForeignKey(Company, related_name='job_openings', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     description = models.TextField()
-    location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True, blank=True)
+    location_id = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True, blank=True)
     date_posted = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
